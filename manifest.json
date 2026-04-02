@@ -1,7 +1,8 @@
 {
   "name": "Simple Workout",
   "short_name": "Workout",
-  "start_url": "./exercise-tracker.html",
+  "start_url": "/Simple_Workout/",
+  "scope": "/Simple_Workout/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#0f0f0f",
