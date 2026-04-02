@@ -4,7 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Simple Workout</title>
-<link rel="apple-touch-icon" href="icon_192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Simple Workout">
+<script>
+  // iOS 홈화면 앱으로 실행될 때 올바른 경로로 리다이렉트
+  if (window.navigator.standalone && location.pathname === '/') {
+    location.replace('/Simple_Workout/');
+  }
+</script>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
