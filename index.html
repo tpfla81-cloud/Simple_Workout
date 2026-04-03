@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simple Workout</title>
+<title>Better Me</title>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="Simple Workout">
+<meta name="apple-mobile-web-app-title" content="Better Me">
 <script>
-  // iOS 홈화면 앱으로 실행될 때 올바른 경로로 리다이렉트
   if (window.navigator.standalone && location.pathname === '/') {
     location.replace('/Simple_Workout/');
   }
 </script>
+<link rel="apple-touch-icon" href="icon_192.png">
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -23,15 +23,12 @@
   --surface: #ffffff;
   --surface2: #f5f5f5;
   --black: #171717;
-  --gray1: #404040;
   --gray2: #737373;
   --gray3: #d4d4d4;
   --gray4: #e5e5e5;
-  --green: #22c55e;
   --red: #ef4444;
-  --blue: #3b82f6;
   --radius: 16px;
-  --radius-xl: 20px;
+  --r-xl: 20px;
 }
 
 body {
@@ -43,63 +40,68 @@ body {
   margin: 0 auto;
 }
 
+/* HEADER */
 header {
   background: var(--surface);
-  padding: 52px 24px 16px;
+  padding: 52px 24px 14px;
   border-bottom: 1px solid var(--gray4);
   position: sticky; top: 0; z-index: 10;
 }
-.header-date { font-size: 13px; color: var(--gray2); font-weight: 500; margin-bottom: 4px; }
+.header-row { display: flex; align-items: flex-end; justify-content: space-between; }
 .header-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
+.header-date { font-size: 13px; color: var(--gray2); font-weight: 500; padding-bottom: 2px; }
 
+/* NAV */
 nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
   width: 100%; max-width: 430px;
-  display: flex;
-  background: var(--surface);
+  display: flex; background: var(--surface);
   border-top: 1px solid var(--gray4);
-  padding: 10px 0 24px;
-  z-index: 20;
+  padding: 10px 0 24px; z-index: 20;
 }
 nav button {
-  flex: 1; padding: 6px 8px;
-  border: none; background: none;
-  font-size: 10px; font-weight: 700;
-  color: var(--gray3); cursor: pointer;
-  display: flex; flex-direction: column;
-  align-items: center; gap: 4px;
-  transition: all 0.2s; font-family: inherit;
+  flex: 1; padding: 6px 8px; border: none; background: none;
+  font-size: 10px; font-weight: 700; color: var(--gray3); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 4px;
+  transition: color 0.2s; font-family: inherit;
   letter-spacing: 0.5px; text-transform: uppercase;
 }
 nav button.active { color: var(--black); }
 nav button .nav-icon { font-size: 22px; line-height: 1; }
 
-.page { display: none; padding: 20px 16px 100px; }
+/* PAGES */
+.page { display: none; padding: 20px 16px 110px; }
 .page.active { display: block; }
 
+/* LABELS */
 .sec-label {
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 0.8px; color: var(--gray2);
-  text-transform: uppercase;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.8px;
+  color: var(--gray2); text-transform: uppercase;
   margin-bottom: 10px; padding: 0 4px;
 }
 
-/* TODAY */
-.progress-pill {
+/* PROGRESS */
+.prog-wrap {
   display: flex; align-items: center; gap: 10px;
-  background: var(--surface); border-radius: var(--radius-xl);
-  border: 1px solid var(--gray4);
-  padding: 14px 16px; margin-bottom: 20px;
+  background: var(--surface); border: 1px solid var(--gray4);
+  border-radius: var(--r-xl); padding: 12px 16px; margin-bottom: 6px;
 }
-.pill-track { flex: 1; height: 5px; background: var(--gray4); border-radius: 99px; overflow: hidden; }
-.pill-fill { height: 100%; background: var(--black); border-radius: 99px; transition: width 0.4s ease; }
-.pill-text { font-size: 13px; font-weight: 600; color: var(--gray2); white-space: nowrap; }
-.pill-text b { color: var(--black); }
+.prog-label { font-size: 12px; font-weight: 600; color: var(--gray2); white-space: nowrap; min-width: 70px; }
+.prog-label b { color: var(--black); }
+.prog-track { flex: 1; height: 5px; background: var(--gray4); border-radius: 99px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--black); border-radius: 99px; transition: width 0.4s ease; }
 
-.routine-group { background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--gray4); overflow: hidden; margin-bottom: 4px; }
+/* SECTION CARD */
+.section-block { margin-bottom: 24px; }
+
+/* ROUTINE ROWS */
+.routine-group {
+  background: var(--surface); border: 1px solid var(--gray4);
+  border-radius: var(--r-xl); overflow: hidden;
+}
 .routine-row {
-  display: flex; align-items: center;
-  padding: 16px; gap: 14px; cursor: pointer;
+  display: flex; align-items: flex-start;
+  padding: 14px 16px; gap: 12px; cursor: pointer;
   border-bottom: 1px solid var(--gray4);
   transition: background 0.12s;
   -webkit-tap-highlight-color: transparent;
@@ -109,211 +111,245 @@ nav button .nav-icon { font-size: 22px; line-height: 1; }
 .routine-row.done { background: var(--surface2); }
 
 .check-circle {
-  width: 26px; height: 26px; border-radius: 50%;
+  width: 24px; height: 24px; border-radius: 50%;
   border: 2px solid var(--gray3);
   display: flex; align-items: center; justify-content: center;
   flex-shrink: 0; transition: all 0.2s;
-  font-size: 13px; color: white;
+  font-size: 12px; color: white; margin-top: 1px;
 }
 .routine-row.done .check-circle { background: var(--black); border-color: var(--black); }
-.rname { font-size: 15px; font-weight: 500; flex: 1; }
-.routine-row.done .rname { text-decoration: line-through; color: var(--gray2); }
-.rdesc { font-size: 13px; color: var(--gray2); font-weight: 500; }
 
-.extra-group { background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--gray4); overflow: hidden; margin-bottom: 8px; }
+.row-body { flex: 1; min-width: 0; }
+.rname { font-size: 15px; font-weight: 500; }
+.routine-row.done .rname { text-decoration: line-through; color: var(--gray2); }
+.rdesc { font-size: 12px; color: var(--gray2); margin-top: 1px; }
+
+/* MEMO */
+.memo-wrap { margin-top: 6px; }
+.memo-input {
+  width: 100%; border: 1px solid var(--gray4); border-radius: 10px;
+  padding: 8px 10px; font-size: 13px; font-family: inherit;
+  background: var(--bg); color: var(--black); outline: none;
+  resize: none; line-height: 1.4;
+  transition: border-color 0.15s;
+}
+.memo-input:focus { border-color: var(--black); }
+.memo-input::placeholder { color: var(--gray3); }
+
+/* PHOTO */
+.photo-row-btn {
+  font-size: 17px; cursor: pointer; flex-shrink: 0;
+  opacity: 0.35; transition: opacity 0.15s; margin-top: 2px;
+  background: none; border: none; padding: 0;
+}
+.photo-row-btn:hover { opacity: 1; }
+.photo-row-btn input { display: none; }
+
+.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 8px; }
+.photo-thumb {
+  aspect-ratio: 1; border-radius: 10px; overflow: hidden;
+  position: relative; background: var(--surface2); border: 1px solid var(--gray4);
+}
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-thumb .plabel {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  background: rgba(0,0,0,0.4); color: white;
+  font-size: 9px; font-weight: 600; padding: 3px 5px; text-align: center;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.photo-thumb .dphoto {
+  position: absolute; top: 3px; right: 3px;
+  background: rgba(0,0,0,0.5); color: white; border: none;
+  border-radius: 50%; width: 18px; height: 18px; font-size: 11px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+}
+.photo-add {
+  aspect-ratio: 1; border-radius: 10px; border: 2px dashed var(--gray4);
+  background: var(--surface); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 3px;
+  cursor: pointer; font-size: 10px; color: var(--gray2);
+  font-weight: 600; font-family: inherit;
+}
+.photo-add .plus { font-size: 20px; color: var(--gray3); line-height: 1; }
+.photo-add input { display: none; }
+
+/* EXTRA */
+.extra-group {
+  background: var(--surface); border: 1px solid var(--gray4);
+  border-radius: var(--r-xl); overflow: hidden; margin-bottom: 8px;
+}
 .extra-row {
-  display: flex; align-items: center;
-  padding: 14px 16px; gap: 10px;
+  display: flex; align-items: center; padding: 13px 16px; gap: 10px;
   border-bottom: 1px solid var(--gray4);
 }
 .extra-row:last-child { border-bottom: none; }
-.edot-icon { width: 7px; height: 7px; background: var(--gray3); border-radius: 50%; flex-shrink: 0; }
-.extra-text { flex: 1; font-size: 15px; font-weight: 500; }
-.icon-btn { background: none; border: none; color: var(--gray3); font-size: 22px; cursor: pointer; line-height: 1; padding: 0; transition: color 0.15s; }
+.edot { width: 6px; height: 6px; background: var(--gray3); border-radius: 50%; flex-shrink: 0; }
+.extra-text { flex: 1; font-size: 14px; font-weight: 500; }
+.icon-btn { background: none; border: none; color: var(--gray3); font-size: 20px; cursor: pointer; padding: 0; transition: color 0.15s; }
 .icon-btn:hover { color: var(--red); }
 
 .input-row {
-  display: flex; gap: 8px;
-  background: var(--surface); border-radius: var(--radius-xl);
-  border: 1px solid var(--gray4); padding: 10px 14px;
+  display: flex; gap: 8px; background: var(--surface);
+  border: 1px solid var(--gray4); border-radius: var(--r-xl); padding: 10px 14px;
 }
-.input-row input {
-  flex: 1; border: none; outline: none;
-  font-size: 15px; font-family: inherit;
-  background: none; color: var(--black);
-}
+.input-row input { flex: 1; border: none; outline: none; font-size: 15px; font-family: inherit; background: none; color: var(--black); }
 .input-row input::placeholder { color: var(--gray3); }
 .add-btn {
   background: var(--black); color: white; border: none;
-  border-radius: 10px; padding: 8px 14px;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer; font-family: inherit;
-  transition: opacity 0.15s;
+  border-radius: 10px; padding: 8px 14px; font-size: 13px;
+  font-weight: 600; cursor: pointer; font-family: inherit;
 }
 .add-btn:active { opacity: 0.7; }
 
-.empty { text-align: center; padding: 32px 16px; color: var(--gray2); font-size: 14px; font-style: italic; border: 2px dashed var(--gray4); border-radius: var(--radius-xl); }
-.empty-icon { font-size: 28px; margin-bottom: 8px; }
+.empty {
+  text-align: center; padding: 28px 16px; color: var(--gray2);
+  font-size: 13px; font-style: italic;
+  border: 2px dashed var(--gray4); border-radius: var(--r-xl);
+}
 
-.photo-routine-btn {
-  font-size: 18px; cursor: pointer; flex-shrink: 0;
-  opacity: 0.4; transition: opacity 0.15s;
+/* CALENDAR */
+.cal-nav {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; padding: 0 4px;
 }
-.photo-routine-btn:hover { opacity: 1; }
-.photo-routine-btn input { display: none; }
-
-/* PHOTO */
-.photo-section { margin-top: 24px; }
-.photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 8px; }
-.photo-thumb {
-  aspect-ratio: 1; border-radius: 12px;
-  overflow: hidden; position: relative;
-  background: var(--surface2); border: 1px solid var(--gray4);
-}
-.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.photo-thumb .photo-label {
-  position: absolute; bottom: 0; left: 0; right: 0;
-  background: rgba(0,0,0,0.45);
-  color: white; font-size: 9px; font-weight: 600;
-  padding: 4px 6px; text-align: center;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-}
-.photo-thumb .del-photo {
-  position: absolute; top: 4px; right: 4px;
-  background: rgba(0,0,0,0.5); color: white;
-  border: none; border-radius: 50%;
-  width: 20px; height: 20px; font-size: 12px;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  line-height: 1;
-}
-.photo-add-btn {
-  aspect-ratio: 1; border-radius: 12px;
-  border: 2px dashed var(--gray4);
-  background: var(--surface);
-  display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  gap: 4px; cursor: pointer;
-  font-size: 11px; color: var(--gray2); font-weight: 600;
-  font-family: inherit; transition: border-color 0.15s;
-}
-.photo-add-btn:hover { border-color: var(--black); }
-.photo-add-btn .plus { font-size: 22px; color: var(--gray3); line-height: 1; }
-.photo-add-btn input { display: none; }
-.cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; padding: 0 4px; }
-.cal-nav h2 { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
+.cal-nav h2 { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
 .cal-arrow {
   background: var(--surface); border: 1px solid var(--gray4);
-  width: 34px; height: 34px; border-radius: 50%;
-  font-size: 16px; font-weight: 700; cursor: pointer; color: var(--black);
+  width: 32px; height: 32px; border-radius: 50%;
+  font-size: 15px; font-weight: 700; cursor: pointer; color: var(--black);
   display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
 }
-.cal-arrow:hover { background: var(--gray4); }
-
-.cal-wrap { background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--gray4); padding: 16px; }
+.cal-wrap { background: var(--surface); border: 1px solid var(--gray4); border-radius: var(--r-xl); padding: 14px; }
 .cal-dh-row { display: grid; grid-template-columns: repeat(7, 1fr); margin-bottom: 4px; }
-.cal-dh { text-align: center; font-size: 11px; font-weight: 700; color: var(--gray2); padding: 4px 0 6px; text-transform: uppercase; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 6px; }
+.cal-dh { text-align: center; font-size: 10px; font-weight: 700; color: var(--gray2); padding: 3px 0 6px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
 .cal-cell {
-  border-radius: 12px;
-  border: 1px solid transparent;
+  border-radius: 10px; border: 1px solid transparent;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  position: relative; cursor: pointer;
-  padding: 8px 2px 10px;
-  min-height: 52px;
-  background: var(--surface);
-  transition: background 0.1s;
+  align-items: center; justify-content: flex-start;
+  padding: 5px 2px 6px; min-height: 56px;
+  background: var(--surface); position: relative;
 }
-.cal-cell.empty { cursor: default; background: transparent; border-color: transparent; }
 .cal-cell:not(.empty) { border-color: var(--gray4); }
-.cal-cell:not(.empty):active { background: var(--surface2); }
+.cal-cell.empty { background: transparent; }
 .cal-cell.today { border-color: var(--black) !important; }
-.dnum { font-size: 13px; font-weight: 600; line-height: 1; }
+.dnum { font-size: 12px; font-weight: 600; line-height: 1; margin-bottom: 3px; }
 .cal-cell.today .dnum { font-weight: 700; }
-.dmark { font-size: 12px; font-weight: 800; line-height: 1; margin-top: 3px; }
-.dmark.o { color: var(--black); }
-.dmark.x { color: var(--gray2); }
-.edot { width: 4px; height: 4px; background: var(--gray2); border-radius: 50%; position: absolute; bottom: 3px; left: 50%; transform: translateX(-50%); }
+.marks { display: flex; flex-direction: column; align-items: center; gap: 1px; }
+.mark-row { display: flex; align-items: center; gap: 2px; }
+.mark-tag { font-size: 8px; font-weight: 700; color: var(--gray3); line-height: 1; }
+.mark-tag.done { color: var(--black); }
+.mark-val { font-size: 10px; font-weight: 800; line-height: 1; }
+.mark-val.o { color: var(--black); }
+.mark-val.x { color: var(--gray3); }
 
-/* ROUTINE EDITOR */
-.seg-ctrl { display: flex; background: var(--gray4); border-radius: 12px; padding: 3px; margin-bottom: 20px; }
-.seg-btn { flex: 1; padding: 8px; border: none; border-radius: 10px; background: none; font-size: 13px; font-weight: 600; color: var(--gray2); cursor: pointer; font-family: inherit; transition: all 0.2s; }
+/* SETTINGS */
+.settings-tabs { display: flex; background: var(--gray4); border-radius: 12px; padding: 3px; margin-bottom: 20px; }
+.settings-tab {
+  flex: 1; padding: 8px; border: none; border-radius: 10px;
+  background: none; font-size: 13px; font-weight: 600;
+  color: var(--gray2); cursor: pointer; font-family: inherit; transition: all 0.2s;
+}
+.settings-tab.active { background: var(--surface); color: var(--black); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
+
+.seg-ctrl { display: flex; background: var(--gray4); border-radius: 10px; padding: 3px; margin-bottom: 16px; }
+.seg-btn { flex: 1; padding: 7px; border: none; border-radius: 8px; background: none; font-size: 12px; font-weight: 600; color: var(--gray2); cursor: pointer; font-family: inherit; transition: all 0.2s; }
 .seg-btn.active { background: var(--surface); color: var(--black); box-shadow: 0 1px 4px rgba(0,0,0,0.1); }
 
-.day-scroll { display: flex; gap: 6px; margin-bottom: 16px; overflow-x: auto; padding-bottom: 2px; }
+.day-scroll { display: flex; gap: 5px; margin-bottom: 14px; overflow-x: auto; padding-bottom: 2px; }
 .day-scroll::-webkit-scrollbar { display: none; }
-.day-chip { flex-shrink: 0; padding: 7px 14px; border-radius: 99px; border: 1px solid var(--gray4); background: var(--surface); font-size: 13px; font-weight: 600; color: var(--gray2); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.day-chip { flex-shrink: 0; padding: 6px 13px; border-radius: 99px; border: 1px solid var(--gray4); background: var(--surface); font-size: 12px; font-weight: 600; color: var(--gray2); cursor: pointer; font-family: inherit; }
 .day-chip.active { background: var(--black); color: white; border-color: var(--black); }
 
-.edit-group { background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--gray4); overflow: hidden; margin-bottom: 8px; }
-.edit-row { display: flex; align-items: center; padding: 12px 16px; gap: 10px; border-bottom: 1px solid var(--gray4); }
+.edit-group { background: var(--surface); border: 1px solid var(--gray4); border-radius: var(--r-xl); overflow: hidden; margin-bottom: 8px; }
+.edit-row { display: flex; align-items: center; padding: 11px 14px; gap: 8px; border-bottom: 1px solid var(--gray4); }
 .edit-row:last-child { border-bottom: none; }
-.edit-name { flex: 1; border: none; outline: none; font-size: 15px; font-weight: 500; font-family: inherit; background: none; color: var(--black); min-width: 0; }
-.edit-reps { width: 48px; border: 1px solid var(--gray4); border-radius: 8px; padding: 5px 6px; font-size: 13px; font-weight: 600; text-align: center; font-family: inherit; outline: none; background: var(--surface2); }
-.edit-reps:focus { border-color: var(--black); }
-.edit-unit { border: 1px solid var(--gray4); border-radius: 8px; padding: 5px 6px; font-size: 13px; font-weight: 600; font-family: inherit; outline: none; background: var(--surface2); }
-.edit-unit:focus { border-color: var(--black); }
+.edit-name { flex: 1; border: none; outline: none; font-size: 14px; font-weight: 500; font-family: inherit; background: none; color: var(--black); min-width: 0; }
+.edit-reps { width: 44px; border: 1px solid var(--gray4); border-radius: 7px; padding: 4px 5px; font-size: 12px; font-weight: 600; text-align: center; font-family: inherit; outline: none; background: var(--surface2); }
+.edit-unit { border: 1px solid var(--gray4); border-radius: 7px; padding: 4px 5px; font-size: 12px; font-weight: 600; font-family: inherit; outline: none; background: var(--surface2); }
 
-.add-input-row { display: flex; gap: 8px; background: var(--surface); border-radius: var(--radius-xl); border: 1px solid var(--gray4); padding: 12px 16px; }
-.add-input-row input { flex: 1; border: none; outline: none; font-size: 15px; font-family: inherit; background: none; color: var(--black); }
+.add-input-row { display: flex; gap: 8px; background: var(--surface); border: 1px solid var(--gray4); border-radius: var(--r-xl); padding: 11px 14px; }
+.add-input-row input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; background: none; color: var(--black); }
 .add-input-row input::placeholder { color: var(--gray3); }
-.add-small-btn { background: var(--surface2); color: var(--black); border: none; border-radius: 8px; padding: 8px 12px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
-.add-small-btn:active { background: var(--gray4); }
+.add-small-btn { background: var(--surface2); color: var(--black); border: none; border-radius: 8px; padding: 7px 12px; font-size: 12px; font-weight: 600; cursor: pointer; font-family: inherit; white-space: nowrap; }
 
 .save-bar {
-  position: fixed; bottom: 0; left: 50%;
-  transform: translateX(-50%); width: 100%; max-width: 430px;
-  background: rgba(250,250,250,0.9);
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: rgba(250,250,250,0.92);
   backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-  padding: 12px 16px 88px; border-top: 1px solid var(--gray4);
+  padding: 10px 16px 82px; border-top: 1px solid var(--gray4);
 }
 .save-bar-btn {
   width: 100%; background: var(--black); color: white; border: none;
-  border-radius: 14px; padding: 16px; font-size: 15px; font-weight: 600;
+  border-radius: 14px; padding: 15px; font-size: 15px; font-weight: 600;
   cursor: pointer; font-family: inherit; transition: all 0.2s;
 }
-.save-bar-btn:active { opacity: 0.7; }
 .save-bar-btn.saved { background: #404040; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-title">Simple Workout</div>
+  <div class="header-row">
+    <div class="header-title">Better Me</div>
+    <div class="header-date" id="header-date"></div>
+  </div>
 </header>
 
 <nav>
   <button onclick="showPage('today')">
-    <span class="nav-icon">✓</span>오늘
+    <span class="nav-icon">☀</span>오늘
   </button>
   <button class="active" onclick="showPage('calendar')">
     <span class="nav-icon">◫</span>기록
   </button>
-  <button onclick="showPage('routine')">
+  <button onclick="showPage('settings')">
     <span class="nav-icon">⚙</span>설정
   </button>
 </nav>
 
+<!-- TODAY -->
 <div class="page" id="page-today">
-  <div class="progress-pill" id="prog-pill" style="display:none">
-    <div class="pill-track"><div class="pill-fill" id="pill-fill" style="width:0%"></div></div>
-    <div class="pill-text" id="pill-text"></div>
+
+  <!-- 하루 루틴 진행률 -->
+  <div class="prog-wrap" id="daily-prog" style="display:none">
+    <div class="prog-label">하루 루틴 <b id="daily-prog-text"></b></div>
+    <div class="prog-track"><div class="prog-fill" id="daily-prog-fill" style="width:0%"></div></div>
   </div>
-  <div class="sec-label">오늘의 루틴</div>
-  <div id="today-list"></div>
-  <div class="sec-label" style="margin-top:24px">추가 운동</div>
-  <div id="extra-group"></div>
-  <div class="input-row" style="margin-top:8px">
-    <input type="text" id="extra-input" placeholder="추가로 한 운동 입력..." />
-    <button class="add-btn" onclick="addExtra()">추가</button>
+  <!-- 운동 루틴 진행률 -->
+  <div class="prog-wrap" id="workout-prog" style="display:none">
+    <div class="prog-label">운동 루틴 <b id="workout-prog-text"></b></div>
+    <div class="prog-track"><div class="prog-fill" id="workout-prog-fill" style="width:0%"></div></div>
   </div>
-  <div class="photo-section">
-    <div class="sec-label">운동 사진</div>
+
+  <!-- 하루 루틴 -->
+  <div class="section-block" style="margin-top:16px">
+    <div class="sec-label">하루 루틴</div>
+    <div id="daily-list"></div>
+  </div>
+
+  <!-- 운동 루틴 -->
+  <div class="section-block">
+    <div class="sec-label">운동 루틴</div>
+    <div id="workout-list"></div>
+    <div class="sec-label" style="margin-top:16px">추가 운동</div>
+    <div id="extra-group"></div>
+    <div class="input-row" style="margin-top:8px">
+      <input type="text" id="extra-input" placeholder="추가로 한 운동 입력..." />
+      <button class="add-btn" onclick="addExtra()">추가</button>
+    </div>
+  </div>
+
+  <!-- 오늘 사진 -->
+  <div class="section-block">
+    <div class="sec-label">오늘 사진</div>
     <div class="photo-grid" id="photo-grid"></div>
   </div>
+
 </div>
 
+<!-- CALENDAR -->
 <div class="page active" id="page-calendar">
   <div class="cal-nav">
     <button class="cal-arrow" onclick="changeMonth(-1)">‹</button>
@@ -324,27 +360,45 @@ nav button .nav-icon { font-size: 22px; line-height: 1; }
     <div class="cal-dh-row" id="cal-dh-row"></div>
     <div class="cal-grid" id="cal-grid"></div>
   </div>
-
 </div>
 
-<div class="page" id="page-routine">
-  <div class="sec-label">루틴 모드</div>
-  <div class="seg-ctrl">
-    <button class="seg-btn active" id="seg-daily" onclick="setMode('daily')">매일 동일</button>
-    <button class="seg-btn" id="seg-weekly" onclick="setMode('weekly')">요일별 설정</button>
+<!-- SETTINGS -->
+<div class="page" id="page-settings">
+  <div class="settings-tabs">
+    <button class="settings-tab active" id="stab-daily" onclick="switchSettingsTab('daily')">하루 루틴</button>
+    <button class="settings-tab" id="stab-workout" onclick="switchSettingsTab('workout')">운동 루틴</button>
   </div>
-  <div id="day-scroll-wrap" style="display:none">
-    <div class="day-scroll" id="day-scroll"></div>
+
+  <!-- 하루 루틴 설정 -->
+  <div id="settings-daily">
+    <div class="sec-label">항목 편집</div>
+    <div id="daily-edit-group"></div>
+    <div class="add-input-row" style="margin-top:8px">
+      <input type="text" id="daily-new-input" placeholder="항목 이름 입력..." />
+      <button class="add-small-btn" onclick="addDailyItem()">+ 추가</button>
+    </div>
   </div>
-  <div class="sec-label" id="edit-label">루틴</div>
-  <div id="edit-group"></div>
-  <div class="add-input-row" style="margin-top:8px">
-    <input type="text" id="new-input" placeholder="운동 이름 입력..." />
-    <button class="add-small-btn" onclick="addItem()">+ 추가</button>
+
+  <!-- 운동 루틴 설정 -->
+  <div id="settings-workout" style="display:none">
+    <div class="seg-ctrl">
+      <button class="seg-btn active" id="seg-daily" onclick="setWorkoutMode('daily')">매일 동일</button>
+      <button class="seg-btn" id="seg-weekly" onclick="setWorkoutMode('weekly')">요일별 설정</button>
+    </div>
+    <div id="workout-day-wrap" style="display:none">
+      <div class="day-scroll" id="workout-day-scroll"></div>
+    </div>
+    <div class="sec-label" id="workout-edit-label">운동 편집</div>
+    <div id="workout-edit-group"></div>
+    <div class="add-input-row" style="margin-top:8px">
+      <input type="text" id="workout-new-input" placeholder="운동 이름 입력..." />
+      <button class="add-small-btn" onclick="addWorkoutItem()">+ 추가</button>
+    </div>
   </div>
+
   <div style="height:90px"></div>
   <div class="save-bar">
-    <button class="save-bar-btn" id="save-btn" onclick="saveRoutine()">저장하기</button>
+    <button class="save-bar-btn" id="save-btn" onclick="saveSettings()">저장하기</button>
   </div>
 </div>
 
@@ -354,178 +408,348 @@ const today = new Date();
 const todayKey = dk(today);
 let state = load();
 
+// ── STATE ──
 function defaultState() {
   return {
-    mode: 'daily',
-    routines: {
-      daily: [],
+    dailyRoutine: [],       // [{id, name}]
+    workoutMode: 'daily',
+    workoutRoutine: {
+      daily: [],            // [{id, name, reps, unit}]
       weekly: {0:[],1:[],2:[],3:[],4:[],5:[],6:[]}
     },
     logs: {}
+    // logs[key] = { dailyChecked:[], dailyMemos:{id:str}, workoutChecked:[], extra:[], photos:[] }
   };
 }
-function load() { try { const s=localStorage.getItem('ex_v3'); return s?JSON.parse(s):defaultState(); } catch { return defaultState(); } }
-function saveS() { localStorage.setItem('ex_v3', JSON.stringify(state)); }
+function load() {
+  try { const s=localStorage.getItem('bm_v1'); return s?JSON.parse(s):defaultState(); }
+  catch { return defaultState(); }
+}
+function saveS() { localStorage.setItem('bm_v1', JSON.stringify(state)); }
 function dk(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
-function getLog(k) { if(!state.logs[k]) state.logs[k]={checked:[],extra:[]}; return state.logs[k]; }
-function getTodayRoutine() { return state.mode==='daily' ? state.routines.daily : (state.routines.weekly[today.getDay()]||[]); }
+function getLog(k) {
+  if(!state.logs[k]) state.logs[k]={dailyChecked:[],dailyMemos:{},workoutChecked:[],extra:[],photos:[]};
+  const l=state.logs[k];
+  if(!l.dailyMemos) l.dailyMemos={};
+  if(!l.photos) l.photos=[];
+  if(!l.extra) l.extra=[];
+  return l;
+}
+function getTodayWorkout() {
+  return state.workoutMode==='daily'
+    ? state.workoutRoutine.daily
+    : (state.workoutRoutine.weekly[today.getDay()]||[]);
+}
 
+// ── NAV ──
 function showPage(name) {
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('nav button').forEach((b,i)=>b.classList.toggle('active',['today','calendar','routine'][i]===name));
+  document.querySelectorAll('nav button').forEach((b,i)=>
+    b.classList.toggle('active',['today','calendar','settings'][i]===name));
   document.getElementById(`page-${name}`).classList.add('active');
   if(name==='today') renderToday();
   if(name==='calendar') renderCalendar();
-  if(name==='routine') renderEditor();
+  if(name==='settings') renderSettings();
 }
 
+// ── TODAY ──
 function renderToday() {
-  const routines=getTodayRoutine(), log=getLog(todayKey);
-  const done=routines.filter(r=>log.checked.includes(r.id)).length, total=routines.length;
-  const pill=document.getElementById('prog-pill');
-  if(total>0) {
-    pill.style.display='flex';
-    document.getElementById('pill-fill').style.width=`${(done/total)*100}%`;
-    document.getElementById('pill-text').innerHTML=`<b>${done}</b> / ${total}`;
-  } else { pill.style.display='none'; }
+  const d=today;
+  document.getElementById('header-date').textContent=
+    `${d.getMonth()+1}월 ${d.getDate()}일 ${DAYS[d.getDay()]}`;
 
-  const el=document.getElementById('today-list');
-  if(!routines.length) {
-    el.innerHTML=`<div class="empty"><div class="empty-icon">📋</div>루틴을 먼저 설정해주세요</div>`;
-  } else {
-    el.innerHTML=`<div class="routine-group">${routines.map(r=>{
-      const isDone=log.checked.includes(r.id);
-      return `<div class="routine-row ${isDone?'done':''}" onclick="toggleCheck(${r.id})">
-        <div class="check-circle">${isDone?'✓':''}</div>
-        <div class="rname">${r.name}</div>
-        <div class="rdesc">${r.reps} ${r.unit}</div>
-        <label class="photo-routine-btn" onclick="event.stopPropagation()" title="사진 추가">
-          📷<input type="file" accept="image/*" multiple onchange="addRoutinePhoto(event,${r.id},'${r.name}')">
-        </label>
-      </div>`;
-    }).join('')}</div>`;
-  }
+  const log=getLog(todayKey);
+
+  // 하루루틴 진행률
+  const dr=state.dailyRoutine, dc=log.dailyChecked;
+  const dprog=document.getElementById('daily-prog');
+  if(dr.length>0){
+    dprog.style.display='flex';
+    document.getElementById('daily-prog-fill').style.width=`${(dc.length/dr.length)*100}%`;
+    document.getElementById('daily-prog-text').textContent=`${dc.length}/${dr.length}`;
+  } else dprog.style.display='none';
+
+  // 운동루틴 진행률
+  const wr=getTodayWorkout(), wc=log.workoutChecked;
+  const wprog=document.getElementById('workout-prog');
+  if(wr.length>0){
+    wprog.style.display='flex';
+    document.getElementById('workout-prog-fill').style.width=`${(wc.length/wr.length)*100}%`;
+    document.getElementById('workout-prog-text').textContent=`${wc.length}/${wr.length}`;
+  } else wprog.style.display='none';
+
+  renderDailyList();
+  renderWorkoutList();
   renderExtraList();
   renderPhotoGrid();
 }
 
-function addRoutinePhoto(e, id, name) {
+function renderDailyList() {
   const log=getLog(todayKey);
-  if(!log.photos) log.photos=[];
-  const files=Array.from(e.target.files);
-  let loaded=0;
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      log.photos.push({id, name, src: ev.target.result});
-      loaded++;
-      if(loaded===files.length){ saveS(); renderPhotoGrid(); }
-    };
-    reader.readAsDataURL(file);
+  const el=document.getElementById('daily-list');
+  if(!state.dailyRoutine.length){
+    el.innerHTML=`<div class="empty">설정에서 하루 루틴을 추가해보세요</div>`; return;
+  }
+  el.innerHTML=`<div class="routine-group">${
+    state.dailyRoutine.map(r=>{
+      const done=log.dailyChecked.includes(r.id);
+      const memo=log.dailyMemos[r.id]||'';
+      return `<div class="routine-row ${done?'done':''}">
+        <div class="check-circle" onclick="toggleDaily(${r.id})">${done?'✓':''}</div>
+        <div class="row-body">
+          <div class="rname" onclick="toggleDaily(${r.id})">${r.name}</div>
+          <div class="memo-wrap">
+            <textarea class="memo-input" rows="1" placeholder="메모..."
+              onclick="event.stopPropagation()"
+              onchange="saveMemo(${r.id}, this.value)"
+            >${memo}</textarea>
+          </div>
+        </div>
+      </div>`;
+    }).join('')
+  }</div>`;
+}
+
+function toggleDaily(id) {
+  const log=getLog(todayKey);
+  const i=log.dailyChecked.indexOf(id);
+  if(i===-1) log.dailyChecked.push(id); else log.dailyChecked.splice(i,1);
+  saveS(); renderToday();
+}
+
+function saveMemo(id, val) {
+  const log=getLog(todayKey);
+  log.dailyMemos[id]=val;
+  saveS();
+}
+
+function renderWorkoutList() {
+  const log=getLog(todayKey);
+  const routines=getTodayWorkout();
+  const el=document.getElementById('workout-list');
+  if(!routines.length){
+    el.innerHTML=`<div class="empty">설정에서 운동 루틴을 추가해보세요</div>`; return;
+  }
+  el.innerHTML=`<div class="routine-group">${
+    routines.map(r=>{
+      const done=log.workoutChecked.includes(r.id);
+      return `<div class="routine-row ${done?'done':''}" onclick="toggleWorkout(${r.id})">
+        <div class="check-circle">${done?'✓':''}</div>
+        <div class="row-body">
+          <div class="rname">${r.name}</div>
+          <div class="rdesc">${r.reps} ${r.unit}</div>
+        </div>
+        <label class="photo-row-btn" onclick="event.stopPropagation()">
+          📷<input type="file" accept="image/*" multiple onchange="addRoutinePhoto(event,${r.id},'${r.name}')">
+        </label>
+      </div>`;
+    }).join('')
+  }</div>`;
+}
+
+function toggleWorkout(id) {
+  const log=getLog(todayKey);
+  const i=log.workoutChecked.indexOf(id);
+  if(i===-1) log.workoutChecked.push(id); else log.workoutChecked.splice(i,1);
+  saveS(); renderToday();
+}
+
+// EXTRA
+function renderExtraList() {
+  const log=getLog(todayKey), el=document.getElementById('extra-group');
+  if(!log.extra.length){el.innerHTML='';return;}
+  el.innerHTML=`<div class="extra-group">${
+    log.extra.map((e,i)=>`<div class="extra-row">
+      <div class="edot"></div>
+      <div class="extra-text">${e}</div>
+      <button class="icon-btn" onclick="removeExtra(${i})">×</button>
+    </div>`).join('')
+  }</div>`;
+}
+function addExtra() {
+  const inp=document.getElementById('extra-input'),v=inp.value.trim();
+  if(!v)return; getLog(todayKey).extra.push(v); inp.value=''; saveS(); renderExtraList();
+}
+function removeExtra(i) { getLog(todayKey).extra.splice(i,1); saveS(); renderExtraList(); }
+
+// PHOTOS
+function addRoutinePhoto(e,id,name) {
+  const log=getLog(todayKey);
+  readFiles(Array.from(e.target.files), files=>{
+    files.forEach(src=>log.photos.push({id,name,src}));
+    saveS(); renderPhotoGrid();
   });
 }
-
-function removePhoto(i) {
+function addPhotoGeneral(e) {
   const log=getLog(todayKey);
-  log.photos.splice(i,1);
-  saveS(); renderPhotoGrid();
+  readFiles(Array.from(e.target.files), files=>{
+    files.forEach(src=>log.photos.push({id:null,name:'기타',src}));
+    saveS(); renderPhotoGrid();
+  });
 }
-
+function readFiles(files, cb) {
+  const results=[]; let n=0;
+  files.forEach(f=>{
+    const r=new FileReader();
+    r.onload=ev=>{ results.push(ev.target.result); if(++n===files.length) cb(results); };
+    r.readAsDataURL(f);
+  });
+}
+function removePhoto(i) { getLog(todayKey).photos.splice(i,1); saveS(); renderPhotoGrid(); }
 function renderPhotoGrid() {
-  const log=getLog(todayKey);
-  const grid=document.getElementById('photo-grid');
-  const photos=log.photos||[];
-  let html=photos.map((p,i)=>`
+  const log=getLog(todayKey), grid=document.getElementById('photo-grid');
+  let html=(log.photos||[]).map((p,i)=>`
     <div class="photo-thumb">
-      <img src="${p.src}" />
-      <div class="photo-label">${p.name}</div>
-      <button class="del-photo" onclick="removePhoto(${i})">×</button>
+      <img src="${p.src}">
+      <div class="plabel">${p.name}</div>
+      <button class="dphoto" onclick="removePhoto(${i})">×</button>
     </div>`).join('');
-  html+=`<label class="photo-add-btn">
-    <span class="plus">+</span>
-    <span>사진 추가</span>
+  html+=`<label class="photo-add">
+    <span class="plus">+</span><span>사진 추가</span>
     <input type="file" accept="image/*" multiple onchange="addPhotoGeneral(event)">
   </label>`;
   grid.innerHTML=html;
 }
 
-function addPhotoGeneral(e) {
-  const log=getLog(todayKey);
-  if(!log.photos) log.photos=[];
-  const files=Array.from(e.target.files);
-  let loaded=0;
-  files.forEach(file=>{
-    const reader=new FileReader();
-    reader.onload=ev=>{
-      log.photos.push({id:null, name:'기타', src: ev.target.result});
-      loaded++;
-      if(loaded===files.length){ saveS(); renderPhotoGrid(); }
-    };
-    reader.readAsDataURL(file);
-  });
-}
-
-function toggleCheck(id) { const log=getLog(todayKey),i=log.checked.indexOf(id); if(i===-1)log.checked.push(id);else log.checked.splice(i,1); saveS();renderToday(); }
-
-function renderExtraList() {
-  const log=getLog(todayKey), el=document.getElementById('extra-group');
-  if(!log.extra.length){el.innerHTML='';return;}
-  el.innerHTML=`<div class="extra-group">${log.extra.map((e,i)=>`<div class="extra-row"><div class="edot-icon"></div><div class="extra-text">${e}</div><button class="icon-btn" onclick="removeExtra(${i})">×</button></div>`).join('')}</div>`;
-}
-
-function addExtra() { const inp=document.getElementById('extra-input'),v=inp.value.trim();if(!v)return;getLog(todayKey).extra.push(v);inp.value='';saveS();renderExtraList(); }
-function removeExtra(i) { getLog(todayKey).extra.splice(i,1);saveS();renderExtraList(); }
-
+// ── CALENDAR ──
 let calY=today.getFullYear(), calM=today.getMonth();
-function changeMonth(d) { calM+=d;if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}renderCalendar(); }
+function changeMonth(d){calM+=d;if(calM<0){calM=11;calY--;}if(calM>11){calM=0;calY++;}renderCalendar();}
 
 function renderCalendar() {
   document.getElementById('cal-title').textContent=`${calY}년 ${calM+1}월`;
   document.getElementById('cal-dh-row').innerHTML=DAYS.map(d=>`<div class="cal-dh">${d}</div>`).join('');
   const grid=document.getElementById('cal-grid');
-  let html='';
   const first=new Date(calY,calM,1).getDay(), last=new Date(calY,calM+1,0).getDate();
+  let html='';
   for(let i=0;i<first;i++) html+=`<div class="cal-cell empty"></div>`;
-  for(let d=1;d<=last;d++) {
+  for(let d=1;d<=last;d++){
     const key=`${calY}-${String(calM+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
     const isToday=key===todayKey, log=state.logs[key];
-    let routine=state.mode==='daily'?state.routines.daily:(state.routines.weekly[new Date(calY,calM,d).getDay()]||[]);
-    let mark='';
-    if(log&&routine.length>0){ if(routine.every(r=>log.checked.includes(r.id))) mark=`<div class="dmark o">O</div>`; else if(key<=todayKey) mark=`<div class="dmark x">X</div>`; }
-    else if(routine.length>0&&key<todayKey) mark=`<div class="dmark x">X</div>`;
-    const edot=log&&log.extra&&log.extra.length?`<div class="edot"></div>`:'';
-    html+=`<div class="cal-cell ${isToday?'today':''}"><div class="dnum">${d}</div>${mark}${edot}</div>`;
+
+    const dr=state.dailyRoutine;
+    const wr=state.workoutMode==='daily'
+      ?state.workoutRoutine.daily
+      :(state.workoutRoutine.weekly[new Date(calY,calM,d).getDay()]||[]);
+
+    let dailyMark='', workoutMark='';
+
+    if(dr.length>0){
+      const dc=log&&log.dailyChecked||[];
+      const allD=dr.every(r=>dc.includes(r.id));
+      if(allD) dailyMark=`<div class="mark-row"><span class="mark-tag done">일</span><span class="mark-val o">O</span></div>`;
+      else if(key<=todayKey) dailyMark=`<div class="mark-row"><span class="mark-tag">일</span><span class="mark-val x">X</span></div>`;
+    }
+    if(wr.length>0){
+      const wc=log&&log.workoutChecked||[];
+      const allW=wr.every(r=>wc.includes(r.id));
+      if(allW) workoutMark=`<div class="mark-row"><span class="mark-tag done">운</span><span class="mark-val o">O</span></div>`;
+      else if(key<=todayKey) workoutMark=`<div class="mark-row"><span class="mark-tag">운</span><span class="mark-val x">X</span></div>`;
+    }
+
+    html+=`<div class="cal-cell ${isToday?'today':''}">
+      <div class="dnum">${d}</div>
+      <div class="marks">${dailyMark}${workoutMark}</div>
+    </div>`;
   }
   grid.innerHTML=html;
 }
 
-let eMode, eDay=0, eRoutines;
-function renderEditor() { eMode=state.mode; eRoutines=JSON.parse(JSON.stringify(state.routines)); document.getElementById('seg-daily').classList.toggle('active',eMode==='daily'); document.getElementById('seg-weekly').classList.toggle('active',eMode==='weekly'); renderDayScroll();renderEditGroup(); }
-function setMode(m) { eMode=m; document.getElementById('seg-daily').classList.toggle('active',m==='daily'); document.getElementById('seg-weekly').classList.toggle('active',m==='weekly'); renderDayScroll();renderEditGroup(); }
-function renderDayScroll() {
-  const wrap=document.getElementById('day-scroll-wrap');
-  document.getElementById('edit-label').textContent=eMode==='daily'?'루틴':`${DAYS[eDay]}요일 루틴`;
-  if(eMode==='daily'){wrap.style.display='none';}
-  else{wrap.style.display='block';document.getElementById('day-scroll').innerHTML=DAYS.map((d,i)=>`<button class="day-chip ${i===eDay?'active':''}" onclick="selDay(${i})">${d}</button>`).join('');}
+// ── SETTINGS ──
+let sTab='daily', eWorkoutMode, eWorkoutDay=0, eDailyItems, eWorkoutRoutine;
+
+function switchSettingsTab(tab) {
+  sTab=tab;
+  document.getElementById('stab-daily').classList.toggle('active',tab==='daily');
+  document.getElementById('stab-workout').classList.toggle('active',tab==='workout');
+  document.getElementById('settings-daily').style.display=tab==='daily'?'block':'none';
+  document.getElementById('settings-workout').style.display=tab==='workout'?'block':'none';
 }
-function selDay(i){eDay=i;renderDayScroll();renderEditGroup();}
-function curList(){return eMode==='daily'?eRoutines.daily:eRoutines.weekly[eDay];}
-function renderEditGroup(){
-  const list=curList(),el=document.getElementById('edit-group');
-  if(!list.length){el.innerHTML=`<div class="empty"><div class="empty-icon">➕</div>운동을 추가해보세요</div>`;return;}
-  el.innerHTML=`<div class="edit-group">${list.map((r,i)=>`<div class="edit-row"><input class="edit-name" type="text" value="${r.name}" onchange="updItem(${i},'name',this.value)"/><input class="edit-reps" type="number" value="${r.reps}" min="1" onchange="updItem(${i},'reps',+this.value)"/><select class="edit-unit" onchange="updItem(${i},'unit',this.value)">${['회','분','세트','km'].map(u=>`<option ${r.unit===u?'selected':''}>${u}</option>`).join('')}</select><button class="icon-btn" onclick="delItem(${i})">×</button></div>`).join('')}</div>`;
+
+function renderSettings() {
+  eDailyItems=JSON.parse(JSON.stringify(state.dailyRoutine));
+  eWorkoutMode=state.workoutMode;
+  eWorkoutRoutine=JSON.parse(JSON.stringify(state.workoutRoutine));
+  eWorkoutDay=0;
+  renderDailyEditGroup();
+  renderWorkoutModeUI();
 }
-function updItem(i,f,v){curList()[i][f]=v;}
-function delItem(i){curList().splice(i,1);renderEditGroup();}
-let nextId=Date.now();
-function addItem(){const inp=document.getElementById('new-input'),name=inp.value.trim();if(!name)return;curList().push({id:nextId++,name,reps:10,unit:'회'});inp.value='';renderEditGroup();}
-function saveRoutine(){
-  state.mode=eMode;state.routines=eRoutines;saveS();
+
+// 하루루틴 편집
+function renderDailyEditGroup() {
+  const el=document.getElementById('daily-edit-group');
+  if(!eDailyItems.length){el.innerHTML=`<div class="empty">항목을 추가해보세요</div>`;return;}
+  el.innerHTML=`<div class="edit-group">${
+    eDailyItems.map((r,i)=>`<div class="edit-row">
+      <input class="edit-name" type="text" value="${r.name}" onchange="eDailyItems[${i}].name=this.value"/>
+      <button class="icon-btn" onclick="delDailyItem(${i})">×</button>
+    </div>`).join('')
+  }</div>`;
+}
+let dNextId=Date.now()+10000;
+function addDailyItem(){
+  const inp=document.getElementById('daily-new-input'),name=inp.value.trim();
+  if(!name)return; eDailyItems.push({id:dNextId++,name}); inp.value=''; renderDailyEditGroup();
+}
+function delDailyItem(i){eDailyItems.splice(i,1);renderDailyEditGroup();}
+
+// 운동루틴 편집
+function setWorkoutMode(m){
+  eWorkoutMode=m;
+  document.getElementById('seg-daily').classList.toggle('active',m==='daily');
+  document.getElementById('seg-weekly').classList.toggle('active',m==='weekly');
+  renderWorkoutModeUI();
+}
+function renderWorkoutModeUI(){
+  document.getElementById('seg-daily').classList.toggle('active',eWorkoutMode==='daily');
+  document.getElementById('seg-weekly').classList.toggle('active',eWorkoutMode==='weekly');
+  const wrap=document.getElementById('workout-day-wrap');
+  const label=document.getElementById('workout-edit-label');
+  if(eWorkoutMode==='daily'){
+    wrap.style.display='none'; label.textContent='운동 편집';
+  } else {
+    wrap.style.display='block';
+    label.textContent=`${DAYS[eWorkoutDay]}요일 운동`;
+    document.getElementById('workout-day-scroll').innerHTML=
+      DAYS.map((d,i)=>`<button class="day-chip ${i===eWorkoutDay?'active':''}" onclick="selWorkoutDay(${i})">${d}</button>`).join('');
+  }
+  renderWorkoutEditGroup();
+}
+function selWorkoutDay(i){eWorkoutDay=i;renderWorkoutModeUI();}
+function curWorkoutList(){return eWorkoutMode==='daily'?eWorkoutRoutine.daily:eWorkoutRoutine.weekly[eWorkoutDay];}
+function renderWorkoutEditGroup(){
+  const list=curWorkoutList(),el=document.getElementById('workout-edit-group');
+  if(!list.length){el.innerHTML=`<div class="empty">운동을 추가해보세요</div>`;return;}
+  el.innerHTML=`<div class="edit-group">${
+    list.map((r,i)=>`<div class="edit-row">
+      <input class="edit-name" type="text" value="${r.name}" onchange="curWorkoutList()[${i}].name=this.value"/>
+      <input class="edit-reps" type="number" value="${r.reps}" min="1" onchange="curWorkoutList()[${i}].reps=+this.value"/>
+      <select class="edit-unit" onchange="curWorkoutList()[${i}].unit=this.value">
+        ${['회','분','세트','km'].map(u=>`<option ${r.unit===u?'selected':''}>${u}</option>`).join('')}
+      </select>
+      <button class="icon-btn" onclick="delWorkoutItem(${i})">×</button>
+    </div>`).join('')
+  }</div>`;
+}
+let wNextId=Date.now()+20000;
+function addWorkoutItem(){
+  const inp=document.getElementById('workout-new-input'),name=inp.value.trim();
+  if(!name)return; curWorkoutList().push({id:wNextId++,name,reps:10,unit:'회'}); inp.value=''; renderWorkoutEditGroup();
+}
+function delWorkoutItem(i){curWorkoutList().splice(i,1);renderWorkoutEditGroup();}
+
+function saveSettings(){
+  state.dailyRoutine=eDailyItems;
+  state.workoutMode=eWorkoutMode;
+  state.workoutRoutine=eWorkoutRoutine;
+  saveS();
   const btn=document.getElementById('save-btn');
-  btn.textContent='저장됐어요 ✓';btn.classList.add('saved');
+  btn.textContent='저장됐어요 ✓'; btn.classList.add('saved');
   setTimeout(()=>{btn.textContent='저장하기';btn.classList.remove('saved');},1600);
 }
 
+// INIT
+document.getElementById('header-date').textContent=
+  `${today.getMonth()+1}월 ${today.getDate()}일 ${DAYS[today.getDay()]}`;
 renderToday();
 showPage('calendar');
 </script>
